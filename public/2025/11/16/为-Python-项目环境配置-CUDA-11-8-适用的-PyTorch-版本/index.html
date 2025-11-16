@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>为 Python 项目环境配置 CUDA 11.8 适用的 PyTorch 版本 | rubbishBin's world</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="/rubbishBin/img/favicon.jpg"><link rel="stylesheet" href="/rubbishBin/css/index.css?v=3.0.21"><link rel="canonical" href="https://physical2.github.io/rubbishBin/2025/11/16/%E4%B8%BA-Python-%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE-CUDA-11-8-%E9%80%82%E7%94%A8%E7%9A%84-PyTorch-%E7%89%88%E6%9C%AC/index.html"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><!-- Feature-specific CSS--><!-- aplayer--><!-- swiper--><!-- fancybox ui--><!-- katex--><!-- Open Graph--><meta name="description" content="又滚来浪费时间乐。。。今天 xha 的风，，巨大无比，冬天又来了…… Condition需要显卡跑深度学习（YOLO）项目（本机显卡版本 - CUDA 11.8 1nvcc --version 检测现有环境中是否能检测到 GPU12345# checkGPU.py import torchprint"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="rubbishBin's world"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="/rubbishBin/img/favicon.jpg"><link rel="apple-touch-icon" href="/rubbishBin/img/favicon.jpg" sizes="180x180"><script>console.log(' %c Solitude %c ' + '3.0.21' + ' %c https://github.com/everfu/hexo-theme-solitude',
+    'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#ff9a9a ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:unset ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
+</script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+
+                if (name && keyObj[name]) return
+
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+            addEventListenerPjax: (ele, event, fn, option = false) => {
+              ele.addEventListener(event, fn, option)
+              utils.addGlobalFn('pjax', () => {
+                  ele.removeEventListener(event, fn, option)
+              })
+            },
+            diffDateFormat: (selector) => {
+                selector.forEach(item => {
+                    const date = new Date(item.getAttribute('datetime') || item.textContent);
+                    item.textContent = (date.getMonth() + 1).toString()+'/'+date.getDate().toString();
+                });
+            },
+        }
+    })()</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><script>const GLOBAL_CONFIG = {
+    root: '/rubbishBin/',
+    algolia: undefined,
+    localsearch: undefined,
+    runtime: '2023-04-20 00:00:00',
+    lazyload: {
+        enable: false,
+        error: '/img/error_load.avif'
+    },
+    copyright: false,
+    highlight: {"limit":200,"expand":true,"copy":true,"syntax":"highlight.js"},
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可"},
+    aside: {
+        state: {
+            morning: "✨ 早上好，新的一天开始了",
+            noon: "🍲 午餐时间",
+            afternoon: "🌞 下午好",
+            night: "早点休息",
+            goodnight: "晚安 😴",
+        },
+        witty_words: [],
+        witty_comment: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: false
+    },
+    comment: false,
+    lightbox: 'null',
+    right_menu: false,
+    translate: {"translateDelay":0,"defaultEncoding":2},
+    lure: false,
+    expire: false,
+};</script><script id="config-diff">var PAGE_CONFIG = {
+    is_post: true,
+    is_page: false,
+    is_home: false,
+    page: '',
+    toc: true,
+    comment: false,
+    ai_text: false,
+    color: false,
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body id="body"><div id="console"><div class="close-btn" onclick="sco.hideConsole()"><i class="solitude fas fa-xmark"></i></div><div class="console-card-group"><div class="console-card-group-right"><div class="console-card tags" onclick="sco.hideConsole()"><div class="card-content"><div class="author-content-item-tips">标签</div><div class="author-content-item-title">寻找感兴趣的领域</div></div><div class="card-tag-cloud"></div></div><div class="console-card history" onclick="sco.hideConsole()"><ul class="card-archive-list"><li class="item"><a href="/archives/2025/11/"><span class="date">2025/11</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2025/10/"><span class="date">2025/10</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2025/09/"><span class="date">2025/09</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/"><span class="date">全部文章</span><div class="count-group"><span class="count">5</span><span class="unit">篇</span></div></a></li></ul></div></div></div><div class="button-group"><div class="console-btn-item"><span class="darkmode_switchbutton" onclick="sco.switchDarkMode()" title="昼夜切换"><i class="solitude fas fa-circle-half-stroke"></i></span></div><div class="console-btn-item" id="consoleHideAside"><span class="asideSwitch" onclick="sco.switchHideAside()" title="边栏显示控制"><i class="solitude fas fa-arrows-left-right-to-line"></i></span></div></div><div class="console-mask" onclick="sco.hideConsole()"></div></div><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/rubbishBin/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/rubbishBin/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/rubbishBin/tags/"><div class="headline">标签</div><div class="length-num">0</div></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude fas fa-circle-half-stroke"></i><span>显示模式</span></span></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="card-tag-cloud"></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><a href="/rubbishBin/" title="返回博客主页" id="site-name"><span class="title">Solitude</span><i class="solitude fas fa-home"></i></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">为 Python 项目环境配置 CUDA 11.8 适用的 PyTorch 版本</a></div></div><div id="menus"></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="nav-totop" onclick="sco.toTop()"><a class="totopbtn"><i class="solitude fas fa-arrow-up"></i><span id="percent">0</span></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude fas fa-bars"></i></a></div></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original" title="该文章为原创文章，注意版权协议">原创</a><div class="tag_share"><div class="post-meta__tag-list"></div></div></div></div><h1 class="post-title">为 Python 项目环境配置 CUDA 11.8 适用的 PyTorch 版本</h1><div id="post-meta"><div class="meta-secondline"></div></div></div><div class="post-radius-bottom"></div><article class="post-content article-container"><h3 id="又滚来浪费时间乐。。。今天-xha-的风，，巨大无比，冬天又来了……"><a href="#又滚来浪费时间乐。。。今天-xha-的风，，巨大无比，冬天又来了……" class="headerlink" title="又滚来浪费时间乐。。。今天 xha 的风，，巨大无比，冬天又来了……"></a>又滚来浪费时间乐。。。今天 xha 的风，，巨大无比，冬天又来了……</h3><hr>
+<h3 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h3><p>需要显卡跑深度学习（YOLO）项目（本机显卡版本 - CUDA 11.8</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc <span class="literal">--version</span></span><br></pre></td></tr></table></figure>
+<h3 id="检测现有环境中是否能检测到-GPU"><a href="#检测现有环境中是否能检测到-GPU" class="headerlink" title="检测现有环境中是否能检测到 GPU"></a>检测现有环境中是否能检测到 GPU</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># checkGPU.py </span></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="built_in">print</span>(torch.cuda.is_available())  <span class="comment"># 检查是否能使用 CUDA</span></span><br><span class="line"><span class="built_in">print</span>(torch.cuda.device_count())  <span class="comment"># 查看可用的 GPU 数量</span></span><br><span class="line"><span class="built_in">print</span>(torch.cuda.get_device_name(<span class="number">0</span>))  <span class="comment"># 查看第一个 GPU 的名称</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>False</strong> 检测不到，往下走</li>
+<li><strong>True</strong> 可以检测到，完成（也作为最后完成的检测标准</li>
+</ul>
+<h3 id="如果现有环境中已有相关包，先删除（Torch-TorchVision-等"><a href="#如果现有环境中已有相关包，先删除（Torch-TorchVision-等" class="headerlink" title="如果现有环境中已有相关包，先删除（Torch TorchVision 等"></a>如果现有环境中已有相关包，先删除（Torch TorchVision 等</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip uninstall torch torchvision torchaudio</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装指定版本"><a href="#安装指定版本" class="headerlink" title="安装指定版本"></a>安装指定版本</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install torch torchvision <span class="literal">--extra-index-url</span> https://download.pytorch.org/whl/cu118</span><br></pre></td></tr></table></figure>
+<p>安装完成后检查现有 Torch 版本</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip show torch</span><br></pre></td></tr></table></figure>
+<p><em>会出现形如下方版本（重点关注 Version: 2.5.0+cu118）</em><br>再运行 checkGPU.py 检查一下</p>
+<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><p><em>2333 没什么感想，很久记的了，当时想有网站的 idea 贼强（）<br>也不知道当时会不会想到现在的我<br>我好像在做一些弥补自己的事情，但是好像并没有什么用，，<br>又一年要过去了<br>在听《朋友请听好》，写到这听到何老师说，先去做，有问题再解决问题，when can I do this</em></p>
+</article><div class="post-copyright"><div class="post-copyright__author_group"><div class="post-copyright__author_img"><img class="post-copyright__author_img_front" src="/rubbishBin/img/logo.png"></div><div class="post-copyright__author_name">rubbishBin</div><div class="post-copyright__author_desc">ljt 的世界</div></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div id="quit-box" onclick="RemoveRewardMask()"></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0</a>协议，完整转载请注明来自<a href="/rubbishBin/">rubbishBin's world</a></span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__tag-list"></div></div></div><nav class="needEndHide pagination-post" id="pagination"><div class="next-post pull-full"><a href="/rubbishBin/2025/10/30/hello-world/"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hello World</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="top-group"><div class="sayhi" id="sayhi" onclick="sco.changeWittyWord()"></div></div></div><div class="avatar"><img alt="头像" src="/img/logo.png"></div><div class="description"></div><div class="bottom-group"><span class="left"><div class="name">rubbishBin</div><div class="desc">只有迎风，风筝才能飞得更高。</div></span><div class="social-icons is-center"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="solitude fas fa-bars"></i><span>文章目录</span></div><div class="toc-content" id="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%88%E6%BB%9A%E6%9D%A5%E6%B5%AA%E8%B4%B9%E6%97%B6%E9%97%B4%E4%B9%90%E3%80%82%E3%80%82%E3%80%82%E4%BB%8A%E5%A4%A9-xha-%E7%9A%84%E9%A3%8E%EF%BC%8C%EF%BC%8C%E5%B7%A8%E5%A4%A7%E6%97%A0%E6%AF%94%EF%BC%8C%E5%86%AC%E5%A4%A9%E5%8F%88%E6%9D%A5%E4%BA%86%E2%80%A6%E2%80%A6"><span class="toc-text">又滚来浪费时间乐。。。今天 xha 的风，，巨大无比，冬天又来了……</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Condition"><span class="toc-text">Condition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E7%8E%B0%E6%9C%89%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%98%AF%E5%90%A6%E8%83%BD%E6%A3%80%E6%B5%8B%E5%88%B0-GPU"><span class="toc-text">检测现有环境中是否能检测到 GPU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E7%8E%B0%E6%9C%89%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%B7%B2%E6%9C%89%E7%9B%B8%E5%85%B3%E5%8C%85%EF%BC%8C%E5%85%88%E5%88%A0%E9%99%A4%EF%BC%88Torch-TorchVision-%E7%AD%89"><span class="toc-text">如果现有环境中已有相关包，先删除（Torch TorchVision 等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8C%87%E5%AE%9A%E7%89%88%E6%9C%AC"><span class="toc-text">安装指定版本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="solitude fas fa-map"></i><span>最近发布</span></div><div class="aside-list"><a class="aside-list-item" href="/rubbishBin/2025/11/16/%E4%B8%BA-Python-%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE-CUDA-11-8-%E9%80%82%E7%94%A8%E7%9A%84-PyTorch-%E7%89%88%E6%9C%AC/" title="为 Python 项目环境配置 CUDA 11.8 适用的 PyTorch 版本"><div class="content"><span class="title" href="/rubbishBin/2025/11/16/%E4%B8%BA-Python-%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE-CUDA-11-8-%E9%80%82%E7%94%A8%E7%9A%84-PyTorch-%E7%89%88%E6%9C%AC/" title="为 Python 项目环境配置 CUDA 11.8 适用的 PyTorch 版本">为 Python 项目环境配置 CUDA 11.8 适用的 PyTorch 版本</span></div></a><a class="aside-list-item" href="/rubbishBin/2025/10/30/hello-world/" title="Hello World"><div class="content"><span class="title" href="/rubbishBin/2025/10/30/hello-world/" title="Hello World">Hello World</span></div></a><a class="aside-list-item" href="/rubbishBin/2025/10/13/%E8%BD%AF%E6%B5%8B%E5%85%A5%E9%97%A8/" title="软测入门"><div class="content"><span class="title" href="/rubbishBin/2025/10/13/%E8%BD%AF%E6%B5%8B%E5%85%A5%E9%97%A8/" title="软测入门">软测入门</span></div></a><a class="aside-list-item" href="/rubbishBin/2025/09/27/Hexo%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%AE%80%E6%98%93%E5%8D%9A%E5%AE%A2/" title="Hexo 搭建个人简易博客"><div class="content"><span class="title" href="/rubbishBin/2025/09/27/Hexo%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%AE%80%E6%98%93%E5%8D%9A%E5%AE%A2/" title="Hexo 搭建个人简易博客">Hexo 搭建个人简易博客</span></div></a><a class="aside-list-item" href="/rubbishBin/2025/09/27/%E5%BC%80%E7%AB%AF/" title="开端"><div class="content"><span class="title" href="/rubbishBin/2025/09/27/%E5%BC%80%E7%AB%AF/" title="开端">开端</span></div></a></div></div></div></div></main><footer id="footer"><div id="st-footer"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2023 - 2025 By<a class="footer-bar-link" href="/rubbishBin/" title="rubbishBin">rubbishBin</a></div><div class="beian-group"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://hexo.io/" title="框架：Hexo">框架：Hexo</a><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/everfu/hexo-theme-solitude" title="主题：Solitude">主题：Solitude</a></div></div><div class="footer-bar-right"></div></div></div><div class="comment-barrage needEndHide"></div></footer></div><div><!-- Critical scripts loaded synchronously--><script src="/rubbishBin/js/utils.js?v=3.0.21"></script><script src="/rubbishBin/js/main.js?v=3.0.21"></script><!-- Non-critical scripts loaded asynchronously--><script async src="/rubbishBin/js/third_party/waterfall.min.js?v=3.0.21"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><!-- Feature-specific scripts loaded asynchronously--><script defer src="/rubbishBin/js/tw_cn.js?v=3.0.21"></script><!-- UI enhancement scripts--><script defer src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><!-- Music player scripts--><!-- Cover color processing scripts--><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+utils.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!-- Search functionality--><!-- Right menu functionality--><div class="js-pjax"></div></div><!-- pjax--><script>let pjax = null;
+
+function initPjax() {
+    if (typeof Pjax === 'undefined') {
+        console.warn('Pjax is not loaded yet, retrying...');
+        setTimeout(initPjax, 100);
+        return;
+    }
+
+    pjax = new Pjax({
+        elements: 'a:not([target="_blank"])',
+        selectors: ["title","#body-wrap","#site-config","meta[name=\"description\"]",".js-pjax","meta[property^=\"og:\"]","#config-diff",".rs_show",".rs_hide"],
+        cacheBust: false,
+        analytics: false,
+        scrollRestoration: false
+    })
+
+    // 将 pjax 实例挂载到全局
+    window.pjax = pjax;
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    document.addEventListener('pjax:complete', () => {
+        window.refreshFn()
+
+        document.querySelectorAll('script[data-pjax]').forEach(item => {
+            const newScript = document.createElement('script')
+            const content = item.text || item.textContent || item.innerHTML || ""
+            Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+            newScript.appendChild(document.createTextNode(content))
+            item.parentNode.replaceChild(newScript, item)
+        })
+
+        GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+    })
+
+    document.addEventListener('pjax:error', (e) => {
+        if (e.request.status === 404) {
+            pjax.loadUrl('/404.html')
+        }
+    })
+}
+
+// 初始化 Pjax
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPjax);
+} else {
+    initPjax();
+}</script><!-- google adsense--></body></html>
+        <script>
+            const posts = ["2025/11/16/为-Python-项目环境配置-CUDA-11-8-适用的-PyTorch-版本/","2025/10/30/hello-world/","2025/10/13/软测入门/","2025/09/27/Hexo 搭建个人简易博客/","2025/09/27/开端/"];
+            function toRandomPost() {
+                const randomPost = posts[Math.floor(Math.random() * posts.length)];
+                pjax.loadUrl(GLOBAL_CONFIG.root + randomPost);
+            }
+        </script>
