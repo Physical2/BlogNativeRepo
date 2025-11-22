@@ -1,3 +1,3 @@
 ## Rubbish Bin's World
 
-create on 10.20
+create on 2025.10.20
