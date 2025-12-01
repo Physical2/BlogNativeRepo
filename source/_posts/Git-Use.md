@@ -4,7 +4,7 @@ date: 2025-11-24 09:14:09
 tags:
 ---
 
-### Git 备忘录
+## Git 备忘录
 --- 
 *健忘患者 >_<* 
 ### 常用工作流 - 拉取 & 合并 & 上传
@@ -13,12 +13,12 @@ tags:
 &nbsp;*“远程仓库” 默认包括 fork 后的上游仓库 & master 分支*
 
 1.&nbsp;&nbsp;直接拉取 = 远程仓库有更新 + 本地无改动 
-```git
+```powershell
 git pull --rebase origin master
 ```
 
 2.&nbsp;&nbsp;覆盖拉取
-```git
+```powershell
 # 远程 master 分支强制覆盖本地 master 分支
 git fetch origin
 git reset --hard origin/master
@@ -31,7 +31,7 @@ git checkout -B phase3 origin/phase3 --force
 *fetch + merge 也行*
 
 3.&nbsp;&nbsp;直接上传 = 远程仓库无更新 + 本地有改动
-```git
+```powershell
 git add .
 git commit -m "注释"
 git push origin master
@@ -39,7 +39,7 @@ git push origin master
 ```
 
 4.&nbsp;&nbsp;合并上传 = 远程仓库有更新 + 本地有改动
-```git
+```powershell
 git add .
 git commit -m "注释"
 git stash   # 暂存
@@ -53,7 +53,7 @@ git stash pop
 ### 相关问题 & 解决
 1.&nbsp;&nbsp; **卡在（master | REBASE 1/1）**  
 &nbsp;&nbsp;出现冲突导致变基（rebase）暂停
-```git
+```powershell
 git rebase
 # 或
 merge --continue
@@ -61,12 +61,17 @@ merge --continue
 
 2.&nbsp;&nbsp; **远程连接超时**  
 *如 HTTP 连接出现 port 443* 
-```git
+- 换 SSH 连接（SSH 走 22 端口）
+```powershell
 git remote set-url origin (+ SSH)
+```
+- HTTP 证书校验问题（仍然用 HTTP 连接）
+```
+git config --global http.sslVerify false
 ```
 
 
-### End
+## End
 也是很久之前的老记录了，，，  
 换了一个主题，想写了不少，但是也不知道对不对…………  
 也是没想到也会在别人的心中留下这么深的印象，好像，在改变？  

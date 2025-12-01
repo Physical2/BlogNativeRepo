@@ -8,7 +8,7 @@ tags:
 ### 又滚来浪费时间乐。。。今天 xha 的风，，巨大无比，冬天又来了……
 
 ---
-### Condition
+## Condition
 需要显卡跑深度学习（YOLO）项目（本机显卡版本 - CUDA 11.8
 ```powershell
 nvcc --version
@@ -40,7 +40,14 @@ pip show torch
 *会出现形如下方版本（重点关注 Version: 2.5.0+cu118）*
 再运行 checkGPU.py 检查一下
 
-### End
+```powershell
+(D:\self_envs\condaEnvs\ODs) PS D:\self_OD> pip show torch                            
+Name: torch
+Version: 2.5.0+cu118
+…………
+```
+
+## End
 *2333 没什么感想，很久记的了，当时想有网站的 idea 贼强（）  
 也不知道当时会不会想到现在的我  
 我好像在做一些弥补自己的事情，但是好像并没有什么用，，  
