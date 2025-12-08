@@ -2,23 +2,21 @@
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
 
-# # Site
-# title: rubbishBin's world
-# subtitle: ''
-# description: ''
-# keywords:
-# author: rubbishBin
-# language: en
-# timezone: ''
-
 # Site
-title: rubbishBin's world # 博客标题
-subtitle: "ljt 的世界" # 子标题
-description: 小心翼翼的努力并拥有着。 # 博客简介
-keywords: rubbishBin # 博客关键词
-author: rubbishBin # 博主名称
-language: zh-CN # 语言
-timezone: ''
+title: rubbishBin's world
+subtitle: 'selfSaving'
+author: rubbishBin
+language: zh-CN
+timezone: Asia/Shanghai
+
+# # Site
+# title: rubbishBin's world # 博客标题
+# subtitle: "ljt 的世界" # 子标题
+# description: 小心翼翼的努力并拥有着。 # 博客简介
+# keywords: rubbishBin # 博客关键词
+# author: rubbishBin # 博主名称
+# language: zh-CN # 语言
+# timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -108,15 +106,15 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: solitude
 
-solitude:
-  # Site Information
-  site:
-    name:
-      class: img # text / i_class / img
-      custom: /img/logo.png # Solitude / fas fa-ghost / /img/pwa/favicon.ico
-    icon: /img/favicon.jpg # Site icon / 网站图标
-# import:
-#   - _config.solitude.yml
+# solitude:
+#   # Site Information
+#   site:
+#     name:
+#       class: img # text / i_class / img
+#       custom: /img/logo.png # Solitude / fas fa-ghost / /img/pwa/favicon.ico
+#     icon: /img/favicon.jpg # Site icon / 网站图标
+# # import:
+# #   - _config.solitude.yml
 
 # theme: landscape
 # theme: raytaylorism
