@@ -3123,7 +3123,7 @@ body {
   min-height: 100%;
   background: var(--efu-background);
   color: var(--efu-fontcolor);
-  font-size: 16px;
+  font-size: 15px;
   font-family: PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif;
   line-height: 2;
   -webkit-tap-highlight-color: transparent;
@@ -3240,7 +3240,7 @@ kbd,
 samp,
 pre {
   font-family: "monospace", monospace;
-  font-size: 16px;
+  font-size: 14px;
 }
 small {
   font-size: 80%;
@@ -12662,10 +12662,10 @@ div#banners .bannerText {
   z-index: 1000;
 }
 [data-theme=dark] {
-  --efu-theme: #ffc848;
-  --efu-theme-op: rgba(255,200,72,0.137);
-  --efu-theme-op-deep: rgba(255,200,72,0.867);
-  --efu-theme-none: rgba(255,200,72,0);
+  --efu-theme: #25caf7;
+  --efu-theme-op: rgba(37,202,247,0.137);
+  --efu-theme-op-deep: rgba(37,202,247,0.867);
+  --efu-theme-none: rgba(37,202,247,0);
   --efu-blue: #0084ff;
   --efu-red: #ff3842;
   --efu-pink: #d44040;
@@ -12702,16 +12702,16 @@ div#banners .bannerText {
   --style-border-hover-always: 1px solid var(--efu-theme);
   --style-border-dashed: 1px dashed var(--efu-theme-op);
   --style-border-forever: 2px solid var(--efu-lighttext);
-  --efu-hl-bg: #1c1e1e;
-  --efu-hltools-bg: #454a50;
+  --efu-hl-bg: #1b1c20;
+  --efu-hltools-bg: #21232a;
   --efu-background: #18171d;
 }
 [data-theme=light] {
-  --efu-theme: #425aef;
-  --efu-theme-op: rgba(66,90,239,0.137);
-  --efu-theme-op-deep: rgba(66,90,239,0.867);
+  --efu-theme: #25caf7;
+  --efu-theme-op: rgba(37,202,247,0.137);
+  --efu-theme-op-deep: rgba(37,202,247,0.867);
   --efu-theme-op-light: rgba(66,89,239,0.051);
-  --efu-theme-none: rgba(66,90,239,0);
+  --efu-theme-none: rgba(37,202,247,0);
   --efu-blue: #425aef;
   --efu-red: #f04a63;
   --efu-pink: #ff7c7c;
@@ -12750,7 +12750,7 @@ div#banners .bannerText {
   --style-border-forever: 2px solid var(--efu-main);
   --efu-navbg: var(--efu-theme-op);
   --efu-hl-bg: #fff;
-  --efu-hltools-bg: #e7e7e7;
+  --efu-hltools-bg: #f7f7f9;
   --efu-background: #f7f9fe;
 }
 @media screen and (max-width: 768px) {
@@ -12760,32 +12760,17 @@ div#banners .bannerText {
   }
 }
 figure.highlight .highlight-tools .copy-button {
-  right: 1.7rem;
-}
-figure.highlight .highlight-tools:after {
-  position: absolute;
-  left: 14px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #fc625d;
-  -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-  -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-  content: ' ';
-}
-figure.highlight .highlight-tools .expand {
-  right: 0;
-}
-figure.highlight .highlight-tools .expand + .code-lang {
-  left: 75px;
+  right: 0.7rem;
 }
 figure.highlight .highlight-tools.closed .expand {
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+figure.highlight .expand + .code-lang {
+  left: 1.7rem;
 }
 figure.highlight table::-webkit-scrollbar {
   color: var(--efu-secondbg);
@@ -12826,21 +12811,21 @@ figure.highlight .deletion {
 [data-theme=dark] figure.highlight .attr,
 [data-theme=dark] figure.highlight .variable,
 [data-theme=dark] figure.highlight .property {
-  color: #569cd6;
+  color: #d74bde;
 }
 [data-theme=dark] figure.highlight .number {
-  color: #b5cea8;
+  color: #8da1a0;
 }
 [data-theme=dark] figure.highlight .string {
-  color: #ce9178;
+  color: #5b876d;
 }
 [data-theme=dark] figure.highlight .built_in,
 [data-theme=dark] figure.highlight .title,
 [data-theme=dark] figure.highlight .params {
-  color: #dcdcaa;
+  color: #d74bde;
 }
 [data-theme=dark] figure.highlight .emphasis {
-  color: #6a9955;
+  color: #ba9c23;
 }
 [data-theme=dark] figure.highlight .addition {
   color: #35cd4b;
@@ -13433,4 +13418,21 @@ figure.highlight .code-expand-btn:not(.expand-done) ~ pre {
   -ms-animation: gradient 2s ease infinite;
   animation: gradient 2s ease infinite;
   background-size: 200%;
+}
+#universe {
+  display: block;
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+[data-theme=light] #universe {
+  display: none;
 }
