@@ -104,7 +104,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: solitude
+# theme: solitude
 
 # solitude:
 #   # Site Information
@@ -113,10 +113,10 @@ theme: solitude
 #       class: img # text / i_class / img
 #       custom: /img/logo.png # Solitude / fas fa-ghost / /img/pwa/favicon.ico
 #     icon: /img/favicon.jpg # Site icon / 网站图标
-# # import:
-# #   - _config.solitude.yml
+# import:
+#   - _config.solitude.yml
 
-# theme: landscape
+theme: landscape
 # theme: raytaylorism
 # theme: shana
 
